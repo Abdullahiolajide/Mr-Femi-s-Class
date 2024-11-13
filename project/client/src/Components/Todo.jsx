@@ -6,7 +6,7 @@ const [item, setItem] = useState('');
 const [description, setDescription] = useState('')
 const [todoArray, setTodoArray] = useState([])
 
-const endpoint = 'http://localhost:3000/retrieve';
+const endpoint = 'https://my-project-backend-virid.vercel.app/retrieve';
 
 useEffect(()=>{
     gettingData()
@@ -27,7 +27,7 @@ useEffect(()=>{
  
 
 function addTodo (){
-    const url = "http://localhost:3000/save";
+    const url = "https://my-project-backend-virid.vercel.app/save";
     let obj ={item, description}
 
     // gettingData()
@@ -49,7 +49,7 @@ function addTodo (){
     // console.log(id)
     // todoArray.splice(1, id)
     // console.log(todoArray, "del")
-    const url = "http://localhost:3000/del/" + id;
+    const url = "https://my-project-backend-virid.vercel.app/del/" + id;
     axios.post(url)
 
         gettingData();
