@@ -59,6 +59,7 @@ app.get('/retrieve', (req, res)=>{
 
 app.get("/", (req, res)=>{
     console.log(URI);
+    res.send("Hello world")
 
 })
 
