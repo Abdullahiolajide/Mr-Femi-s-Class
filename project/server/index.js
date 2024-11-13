@@ -9,6 +9,7 @@ const PORT = 3000;
 
 
 app.use(cors())
+app.use(cors({ origin: 'https://my-project-two-wine.vercel.app' }));
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
 
