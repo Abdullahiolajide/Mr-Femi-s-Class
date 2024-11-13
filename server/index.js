@@ -56,6 +56,9 @@ app.get('/retrieve', (req, res)=>{
         console.log(err)
     })
 })
+app.get('/show', (req, res)=>{
+    res.send("something")
+})
 
 app.get("/", (req, res)=>{
     console.log(URI);
