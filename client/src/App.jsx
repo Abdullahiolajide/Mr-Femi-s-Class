@@ -8,7 +8,7 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path='/todo' element={<Todo/>} />
+      <Route path='/' element={<Todo/>} />
     </Routes>
       {/* <Route />
     </Router> */}
