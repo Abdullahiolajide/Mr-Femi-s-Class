@@ -1,0 +1,115 @@
+const express = require('express');
+const app = express();
+require('dotenv').config()
+const port = process.env.port;
+const SECRET = process.env.SECRETE_KEY
+const bcrypt = require('bcryptjs')
+const jwt = require("jsonwebtoken")
+
+
+app.get('/', (req, res)=>{
+    const obj ={
+        email: 'someone@gmail.com',
+        password: 'something'
+    }
+    bcrypt.
+
+    jwt.sign(obj, SECRET, {expiresIn:"1h"}, (error, token)=>{
+        console.log(token);
+    })
+})
+
+
+
+app.listen(port, ()=>{
+    console.log('server is running at port '+ port)
+})
+
+
+
+
+
+
+
+
+
+
+// const { compare } = require("bcrypt");
+// const jwt = require("jsonwebtoken")
+const secret = process.env.SECRET
+// const userModel = require("../Models/user.model")
+
+const userWelcome =(req, res)=>{
+    res.send("Hello world")
+    console.log('welcome to the user router');
+}
+
+const signUp = (req, res)=>{
+    console.log(req.body)
+    let user = new userModel (req.body)
+    user.save().then(()=>{
+        console.log("user saved")
+        res.send( {status:true, message:"user saved successfully"})
+    }).catch((err)=>{
+        console.log(err)
+        res.send( {status:false, message:"user not saved"})
+
+    })
+    // res.render("signup")
+}
+const authenticateUser = (req, res)=>{
+    let {email, password} = req.body
+    userModel.findOne({email2:email}).then(async (user) =>{
+        // console.log("no problem discovered")
+        console.log(user, user.firstname)
+        if (!user) return res.status(200).json({message: "Email not found", status : false})
+        const confirmpass = await compare(password, user.password)
+        
+        if (!confirmpass) {
+            res.status(200).json({message: "Incorrect Password", status : false})
+            // res.send({message: user.firstname})
+        }
+        else{
+            let token = jwt.sign({email}, secret, { expiresIn: 2000 })
+            res.status(200).json({message: `logged in sucessfully`, token:token, status : true})
+        }
+
+        app.get("/dashboard", (req, res)=>{
+            res.send({message: user.firstname})
+        })
+
+        console.log(user);
+        user.compareUser(password, (err, result)=>{
+            if (err) {
+               console.log("user not found") 
+               resp.send({status:false, message: "password not correct"})
+            }else{
+                console.log(result, "user found")
+                resp.send( {status:true, message: "password correct"})
+            }
+        })
+
+    }).catch((err)=>{
+        console.log(err)
+    })
+}
+// const userDashboard = ()=>{
+//     console.log("Dashboard online")
+
+
+
+// }
+const signIn = (req, res)=>{
+    res.render("signin")
+}
+const userDashboard = (req, res)=>{
+    // res.render("dashboard")
+    console.log(req.headers)
+ 
+    let token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, secret, ((err, result) =>{
+        console.log(result)
+    }))
+}
+
+// module.exports = { userWelcome, signUp, signIn, authenticateUser, userDashboard }
